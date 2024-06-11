@@ -1,43 +1,51 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import getAllProducts from "@/lib/actions/getALlProducts";
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+    const data = await getAllProducts();
+    console.log(data)
   return (
-   <main>
-      Home page
-      <div class="card bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-        <div class="card-header">
-            <h2 class="card-title text-2xl font-bold mb-4">F.P. Journe</h2>
-            <p class="card-description text-gray-700 mb-4">Kokies Vinyl Toy Collectives featuring Francois Paul Journe, Circa 2022</p>
+   <main className="my-8 px-2 md:px-6 lg:px-12 xl:px-28">
+      <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-8">
+        {
+        data && data.payload.map((item)=>{
+            return(
+                <Link href={"/room/"+item.id} key={item.id}>
+    <div className='cursor-pointer border-b-2 border-transparent hover:border-main duration-500'>
+
+        <div className=" relative flex justify-center imageBox max-w-full md:max-w-80 h-72 rounded-lg overflow-hidden">
+            <Image className='rounded-lg h-full min-w-fit' src={item.product_img} width={400} height={300} alt='room in Biratnagar'/>
         </div>
-        <div class="badge bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">No reserve</div>
-        <div class="card-content text-gray-700 my-4">
-            <div class="flex items-center justify-between">
-                <span class="font-semibold">Lot closes</span>
-                <span>04:31:36</span>
+
+        <div className="descBox text-sm my-4">
+          
+            <h3 className='font-semibold text-gray-800 text-base overflow-hidden whitespace-nowrap text-ellipsis capitalize'>{item.product_name}</h3>
+            <p className='text-gray-500 overflow-hidden whitespace-nowrap text-ellipsis'>{item.product_description}</p>
+            <p className='text-gray-500'>{item.product_category}</p>
+
+            <div className="flex justify-between items-end">
+              <p className='text-gray-800 font-medium mt-2'>Rs {item.product_price}</p>
+
+                <Button variant="outline" size="icon"  className=" size-8 hover:bg-main hover:text-white" >
+                  <ChevronRight size={20} />
+                </Button>
+                
             </div>
-            <div class="flex items-center justify-between">
-                <span class="font-semibold">June 11, 07:46 PM +0545</span>
-            </div>
+
         </div>
-        <div class="card-content text-gray-700 my-4">
-            <div class="flex items-center justify-between">
-                <span class="font-semibold">Estimate</span>
-                <span>5,000 - 8,000 USD</span>
-            </div>
-        </div>
-        <div class="card-content text-gray-700 my-4">
-            <div class="flex items-center justify-between">
-                <span class="font-semibold">Current Bid</span>
-                <span class="text-xl font-bold">1,800 USD</span>
-            </div>
-            <div class="flex items-center justify-between">
-                <span class="font-semibold">19 Bids</span>
-                <span class="font-semibold">No reserve</span>
-            </div>
-        </div>
-        <div class="card-footer">
-            <button class="btn bg-blue-600 text-white font-bold py-2 px-4 rounded w-full">Register to Bid</button>
-        </div>
+
     </div>
+    </Link>
+            )
+        })
+    }
+      </section>
+
+
    </main>
   );
 }

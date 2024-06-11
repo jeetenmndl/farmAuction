@@ -27,6 +27,7 @@ import Link from 'next/link'
 // import postRoom from '@/lib/actions/postRoom'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import postItem from '@/lib/actions/postItem'
 
 
  
@@ -68,8 +69,8 @@ const SellItem = () => {
   
       const isLogged = ()=>{
         // setCheck(localStorage.getItem("auth-token"));
-        let check = localStorage.getItem("auth-token")
-        console.log(check)
+        let check = localStorage.getItem("token")
+        // console.log(check)
         if(check == null || check == ""){
           setMustLog(true);
           toast({
@@ -109,39 +110,43 @@ const SellItem = () => {
      async function onSubmit(values) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        let user = localStorage.getItem("auth-token")
-        console.log(values)
-        console.log(responseImage)
-        console.log(user)
-        // try {
-        //     setloading(true);
-        //     const response = await postRoom(values, responseImage, user);
-        //     if(response.posted==true){
-        //         toast({
-        //             title: "Success !",
-        //             description: "Room posted successfully.",
-        //         })
-        //         setTimeout(() => {
-        //             router.push("/");
-        //         }, 3000);
-        //     }
-        //     else{
-        //       toast({
-        //         title: "Oops !",
-        //         description: "Some error occured.",
-        //         variant: "destructive",
-        //     })
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        //     toast({
-        //         title: "Oops !",
-        //         description: "Some error occured.",
-        //         variant: "destructive",
-        //     })
-        // }finally{
-        //     setloading(false);
-        // }
+        let user = localStorage.getItem("username");
+        let token = localStorage.getItem("token");
+
+        // console.log(values)
+        // console.log(responseImage)
+        // console.log(user)
+        
+        try {
+            setloading(true);
+            const response = await postItem(values, responseImage, user);
+            console.log("in selling", response)
+            if(response.posted==true){
+                toast({
+                    title: "Success !",
+                    description: "Room posted successfully.",
+                })
+                setTimeout(() => {
+                    router.push("/");
+                }, 3000);
+            }
+            else{
+              toast({
+                title: "Oops !",
+                description: "Some error occured.",
+                variant: "destructive",
+            })
+            }
+        } catch (error) {
+            console.log(error)
+            toast({
+                title: "Oops !",
+                description: "Some error occured.",
+                variant: "destructive",
+            })
+        }finally{
+            setloading(false);
+        }
       }
 
 
@@ -192,10 +197,12 @@ const SellItem = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value="fertilizers">Fertilizers</SelectItem>
+                  <SelectItem value="seeds">Seeds</SelectItem>
+                  <SelectItem value="fruits">Fruits</SelectItem>
                   <SelectItem value="crops">Crops</SelectItem>
                   <SelectItem value="vegetables">Vegetables</SelectItem>
-                  <SelectItem value="fruits">Fruits</SelectItem>
-                  <SelectItem value="exoticFruits">Exotic fruits</SelectItem>
+
                 </SelectContent>
               </Select>
                 {/* <FormDescription>

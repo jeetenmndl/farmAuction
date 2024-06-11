@@ -25,6 +25,7 @@ import Image from 'next/image'
 import postUser from '@/lib/actions/postUser'
 import checkOtp from '@/lib/actions/checkOtp'
 import Link from 'next/link'
+import { Switch } from './ui/switch'
   
 
 
@@ -38,6 +39,7 @@ const formSchema = z.object({
     password: z.string().min(8, {
       message : "Minimum 8 characters.",
     }),
+    is_owner: z.boolean()
     
   })
 
@@ -55,16 +57,18 @@ const RegisterForm = () => {
             username:"",
             email:"",
             password:"",
+            is_owner: false,
     },
     })
 
     // 2. submit handler for submit
     async function onSubmit(values) {
-        console.log(values);
+        // console.log(values);
         try {
             setLoading(true);
             const response = await postUser(values);
-            console.log("in register page", response);
+            // console.log("in register page", response);
+            localStorage.setItem("id", response.id)
             if(response.posted==true){
                 toast({
                     title: "Congratulations !",
@@ -81,7 +85,7 @@ const RegisterForm = () => {
                 })
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             toast({
                 title: "Oops !",
                 description: "Some error occured.",
@@ -95,20 +99,24 @@ const RegisterForm = () => {
 
     async function otpClick() {
         let otp = document.getElementById("otp").value;
-        console.log(otp);
+        // console.log(otp);
         try {
             setLoading(true);
-            const response = await checkOtp(otp);
-            console.log("in otp function", response);
-            if(response.posted==true){
+            let id = localStorage.getItem("id");
+            // console.log(id)
+            const response = await checkOtp(id,otp);
+            // console.log("in otp function", response);
+            if(response.verified==true){
                 toast({
                     title: "Congratulations !",
                     description: "OTP verified successfully.",
                 })
+
+                localStorage.setItem("token", response.access)
                 
                 setTimeout(() => {
                     router.push("/login")
-                }, 1000);
+                }, 2000);
             }
             else{
                 toast({
@@ -191,6 +199,26 @@ const RegisterForm = () => {
                 </FormDescription> */}
                 <FormMessage />
                 </FormItem>
+            )}
+            />
+
+            <FormField
+            control={form.control}
+            name="is_owner"
+            render={({ field }) => (
+            <FormItem className="mt-4 flex flex-row items-center justify-between">
+            <div>
+                <FormLabel className="text-base">
+                Seller
+                </FormLabel>
+            </div>
+            <FormControl>
+                <Switch
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                />
+            </FormControl>
+            </FormItem>
             )}
             />
 

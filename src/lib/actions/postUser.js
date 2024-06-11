@@ -7,6 +7,7 @@ const postUser = async (formData)=>{
         username: formData.username,
         email: formData.email,
         password: formData.password,
+        is_owner: formData.is_owner,
     }
 
   

@@ -52,23 +52,27 @@ const LoginForm = () => {
 
     // 2. submit handler for submit
     async function onSubmit(values) {
-        console.log(values);
+        // console.log(values);
         try {
             setLoading(true);
             const response = await checkLogin(values);
-            console.log("in login page", response);
-            if(response.posted==true){
+            // console.log("in login page", response);
+            if(response.login==true){
                 toast({
                     title: "Congratulations !",
                     description: "Logged in sucessfully.",
                 })
+
+                localStorage.setItem("username", values.username)
+                localStorage.setItem("token", response.access)
                 
-                setstep(2)
+
+                router.push("/")
             }
             else{
                 toast({
                     title: "Oops !",
-                    description: response.message,
+                    description: response.error,
                     variant: "destructive",
                 })
             }

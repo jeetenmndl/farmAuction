@@ -4,8 +4,8 @@
 const checkOtp = async (username, otp)=>{
 
     let details = {
-        username: username,
-        otp: otp,
+        id: username,
+        emailtoken: otp,
     }
 
   
@@ -17,7 +17,7 @@ const checkOtp = async (username, otp)=>{
       body: JSON.stringify(details)
   };
   
-    const query = await fetch(`${process.env.SERVER}/api`, settings)
+    const query = await fetch(`${process.env.SERVER}/api/email-verify/`, settings)
     const response = await query.json()
   
     return response
