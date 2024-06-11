@@ -15,8 +15,8 @@ const Navbar = () => {
       <div className="flex leading-8 lg:leading-10">
         <Link href="/" className="mx-8 text-center tracking-widest cursor-pointer hover:underline">ABOUT</Link>
         <Link href="/" className="mx-8 tracking-widest cursor-pointer hover:underline">PROMOTIONS</Link>
-        <Link href="/" className="mx-8 tracking-widest cursor-pointer hover:underline">FAQ&apos;S</Link>
-        <Link href="/" className="mx-8 tracking-widest cursor-pointer hover:underline">CONTACT</Link>
+        <Link href="/register" className="mx-8 font-semibold tracking-widest cursor-pointer hover:underline">REGISTER</Link>
+        <Link href="/login" className="mx-8 font-semibold tracking-widest cursor-pointer hover:underline">LOGIN</Link>
       </div>
     </nav>
 
@@ -32,7 +32,7 @@ const Navbar = () => {
           <Link href="/">
             <Image src={Logo} alt="Eventmania" className=' w-7 h-7 md:w-12 md:h-12'/>
           </Link>
-          <Link href="/" className=' text-xl md:text-3xl font-semibold text-gray-800'>Farmauction</Link>
+          <Link href="/" className=' text-xl md:text-3xl font-semibold text-gray-800'>Farm-auction</Link>
         </div>
 
         {/* <!-- links primary  --> */}

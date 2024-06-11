@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import postUser from '@/lib/actions/postUser'
 import checkOtp from '@/lib/actions/checkOtp'
+import Link from 'next/link'
   
 
 
@@ -45,7 +46,7 @@ const RegisterForm = () => {
     const router = useRouter()
     const {toast}= useToast();
     const [loading, setLoading] = useState(false);
-    const [step, setstep] = useState(2);
+    const [step, setstep] = useState(1);
     
 
     const form = useForm({
@@ -194,7 +195,7 @@ const RegisterForm = () => {
             />
 
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col">
             { 
                 !loading
                 ?
@@ -206,6 +207,12 @@ const RegisterForm = () => {
                     <Loader2 className=" h-4 w-4 animate-spin" />
                 </Button>
             }
+            <div className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <Link href="/login" className="underline">
+            Login
+          </Link>
+        </div>
             
         </CardFooter>
     </Card>

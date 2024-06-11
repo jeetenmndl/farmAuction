@@ -21,6 +21,7 @@ import { useToast } from './ui/use-toast'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import checkLogin from '@/lib/actions/checkLogin'
+import Link from 'next/link'
   
 
 
@@ -134,7 +135,7 @@ const LoginForm = () => {
             />
 
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col">
             { 
                 !loading
                 ?
@@ -146,7 +147,12 @@ const LoginForm = () => {
                     <Loader2 className=" h-4 w-4 animate-spin" />
                 </Button>
             }
-            
+            <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="underline">
+            Register
+          </Link>
+        </div>
         </CardFooter>
     </Card>
 
