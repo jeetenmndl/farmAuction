@@ -37,9 +37,9 @@ const Navbar = () => {
 
         {/* <!-- links primary  --> */}
         <div className="tier1 hidden md:flex leading-[80px] [&>a]:uppercase">
-          <Link href="/" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Upcoming Events</Link>
-          <Link href="/" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Results</Link>
-          <Link href="/register" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Register</Link>
+          <Link href="/" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Category</Link>
+          <Link href="/sell-item" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Sell Item</Link>
+          <Link href="/" className="mx-4 lg:mx-8 tracking-widest cursor-pointer hover:underline">Live Auctions</Link>
         </div>
 
       </div>

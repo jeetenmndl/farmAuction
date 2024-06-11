@@ -2,7 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-// import "@uploadthing/react/styles.css";
+import "@uploadthing/react/styles.css";
 import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({

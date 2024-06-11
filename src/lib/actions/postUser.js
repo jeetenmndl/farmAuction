@@ -18,7 +18,7 @@ const postUser = async (formData)=>{
       body: JSON.stringify(details)
   };
   
-    const query = await fetch(`${process.env.SERVER}/api`, settings)
+    const query = await fetch(`${process.env.SERVER}/api/register/`, settings)
     const response = await query.json()
   
     return response
